@@ -25,14 +25,6 @@ namespace espserver.Controllers
             return resp;
         }
 
-        [HttpGet]
-        public List<PortStatResponse> EspGetValue()
-        {
-            _logger.LogInformation("Start call");
-            var resp = _esp8266.GetPinStat();
-            return resp;
-        }
-
 
         [HttpGet]
         public string getpath()
