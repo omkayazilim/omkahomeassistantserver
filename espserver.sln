@@ -5,11 +5,18 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "espserver", "espserver\espserver.csproj", "{86F49EDE-993A-44CB-8EA2-1058191DC1EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructer", "Infrastructer\Infrastructer.csproj", "{32486793-C50A-4192-BA68-9DE6D6C0A16C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructer", "Infrastructer\Infrastructer.csproj", "{32486793-C50A-4192-BA68-9DE6D6C0A16C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{80237AB8-D37B-46B6-BC84-54CC81EB1BA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{80237AB8-D37B-46B6-BC84-54CC81EB1BA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{547A5F7B-9EDE-42A3-9898-D16A5A18C89A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{547A5F7B-9EDE-42A3-9898-D16A5A18C89A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".gitops", ".gitops", "{B501F4E6-6FBE-4F61-99EA-BFBA4F8855DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{3A80A90B-271F-4F51-9A60-339D6C595A03}"
+	ProjectSection(SolutionItems) = preProject
+		buildandpush.yml = buildandpush.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +43,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3A80A90B-271F-4F51-9A60-339D6C595A03} = {B501F4E6-6FBE-4F61-99EA-BFBA4F8855DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B6B58A43-46F0-4494-8081-CF7D31D67C07}
