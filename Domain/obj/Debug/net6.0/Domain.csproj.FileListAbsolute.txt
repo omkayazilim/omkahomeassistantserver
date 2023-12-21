@@ -1,0 +1,11 @@
+D:\Projects\EspServer\Domain\bin\Debug\net6.0\Domain.deps.json
+D:\Projects\EspServer\Domain\bin\Debug\net6.0\Domain.dll
+D:\Projects\EspServer\Domain\bin\Debug\net6.0\Domain.pdb
+D:\Projects\EspServer\Domain\obj\Debug\net6.0\Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projects\EspServer\Domain\obj\Debug\net6.0\Domain.AssemblyInfoInputs.cache
+D:\Projects\EspServer\Domain\obj\Debug\net6.0\Domain.AssemblyInfo.cs
+D:\Projects\EspServer\Domain\obj\Debug\net6.0\Domain.csproj.CoreCompileInputs.cache
+D:\Projects\EspServer\Domain\obj\Debug\net6.0\Domain.dll
+D:\Projects\EspServer\Domain\obj\Debug\net6.0\refint\Domain.dll
+D:\Projects\EspServer\Domain\obj\Debug\net6.0\Domain.pdb
+D:\Projects\EspServer\Domain\obj\Debug\net6.0\ref\Domain.dll
