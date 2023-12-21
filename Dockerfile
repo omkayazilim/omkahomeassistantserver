@@ -2,15 +2,18 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["espserver.csproj", "."]
+COPY ["Infrastructer/Infrastructer.csproj", "Infrastructer/"]
+COPY ["Business/Business.csproj", "Business/"]
+COPY ["Domain/Domain.csproj", "Domain/"]
+COPY ["espserver/espserver.csproj", "espserver/"]
 
-RUN dotnet restore "espserver.csproj"
+RUN dotnet restore "espserver/espserver.csproj"
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/src/espserver"
 RUN dotnet build "espserver.csproj" -c Release -o /app/build
 
 FROM build AS publish
