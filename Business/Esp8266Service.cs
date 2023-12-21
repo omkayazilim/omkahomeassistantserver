@@ -30,12 +30,12 @@ namespace Business
             else throw response.ErrorException ?? new Exception();
         }
 
-        public List<PortStatResponse> GetPinStat()
+        public async Task<List<PortStatResponse>> GetPinStat()
         {
             string espurl = Environment.GetEnvironmentVariable("ESPURL") ?? "";
             var client = new RestClient(espurl);
             var request = new RestRequest("getValues");
-            var response = client.Get(request);
+            var response = await client.GetAsync(request);
             if (response.IsSuccessStatusCode)
                 return JsonConvert.DeserializeObject<List<PortStatResponse>>(response.Content);//response.Content.ser;
             else throw response.ErrorException ?? new Exception();
@@ -52,7 +52,7 @@ namespace Business
             var props = await _dbContext.EspPort.Select(x =>
             new PortPropsDto
             {
-                 Id = x.Id,
+                Id = x.Id,
                 PortDesc = x.PortDesc,
                 PortKey = x.PortKey,
                 PortNumber = x.PortNumber,
@@ -60,13 +60,30 @@ namespace Business
                 PortType = x.PortType,
             }
             ).ToListAsync();
+            var statlist = await GetPinStat();
 
-            return props;
+            var resp = (from dp in props
+                        join pp in statlist on dp.PortNumber equals pp.Pin
+                        select new PortPropsDto {
+                            Id = dp.Id,
+                            PortDesc = dp.PortDesc,
+                            PortKey = dp.PortKey,
+                            PortNumber = dp.PortNumber,
+                            PortPropertyType = dp.PortPropertyType,
+                            PortType = dp.PortType,
+                            PinStat = pp?.Value >0? true:false,
+                        }).ToList();
+
+            return resp; 
         }
 
         public async Task NewPortProp(PortPropsSetRequestDto request)
         {
-            var prop = new EspPort
+
+            if (await _dbContext.EspPort.AnyAsync(x => x.PortNumber == request.PortNumber))
+                throw new Exception("Port Zaten Tanımlı");
+
+          var prop = new EspPort
             {
                 PortDesc = request.PortDesc,
                 PortKey = request.PortKey,

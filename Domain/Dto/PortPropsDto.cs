@@ -9,5 +9,6 @@ namespace Domain.Dto
         public string PortDesc { get; set; }
         public EspPortPropertyType PortPropertyType { get; set; }
         public EspPortType PortType { get; set; }
+        public bool PinStat { get; set; }
     }
 }
