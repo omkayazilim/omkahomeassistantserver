@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "7U3x/vDqbaVl+IbadCqOtqaD5ynNGw3O1fxTuDHKYfs=",
+  "Source": "espserver",
+  "BasePath": "_content/espserver",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
