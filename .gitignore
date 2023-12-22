@@ -4,8 +4,10 @@
 
 /.vs
 /Domain/bin/Debug/net6.0
+/Domain/obj
 /espserver/.vs
 /espserver/bin/Debug/net6.0
+/espserver/obj
 /Infrastructer/bin/Debug/net6.0
 /Infrastructer/obj
 /Business/bin/Debug/net6.0
