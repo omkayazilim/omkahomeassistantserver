@@ -9,6 +9,8 @@ builder.Services.AddScoped<IAppDbContext, AppDbContext>();
 builder.Services.AddInfrastructures(builder.Configuration);
 
 builder.Services.AddScoped<IEsp8266Service, Esp8266Service>();
+builder.Services.AddScoped<IEspPortDefService, EspPortDefService>();
+builder.Services.AddScoped<IReleChannelDefService, ReleChannelDefService>();
 
 
 builder.Services.AddControllers();

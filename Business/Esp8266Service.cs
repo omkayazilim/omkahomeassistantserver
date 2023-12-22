@@ -40,24 +40,16 @@ namespace Business
                 return JsonConvert.DeserializeObject<List<PortStatResponse>>(response.Content);//response.Content.ser;
             else throw response.ErrorException ?? new Exception();
         }
-
-        public string getpath()
-        {
-            var path = _dbContext.getpath();
-            return path;
-        }
-
         public async Task<List<PortPropsDto>> GetPortProps()
         {
-            var props = await _dbContext.EspPort.Select(x =>
+            var props = await _dbContext.EspPortDef.Select(x =>
             new PortPropsDto
             {
                 Id = x.Id,
                 PortDesc = x.PortDesc,
                 PortKey = x.PortKey,
-                PortNumber = x.PortNumber,
-                PortPropertyType = x.PortPropertyType,
-                PortType = x.PortType,
+                PortNumber = x.PortNumber
+              
             }
             ).ToListAsync();
             var statlist = await GetPinStat();
@@ -76,47 +68,5 @@ namespace Business
 
             return resp; 
         }
-
-        public async Task NewPortProp(PortPropsSetRequestDto request)
-        {
-
-            if (await _dbContext.EspPort.AnyAsync(x => x.PortNumber == request.PortNumber))
-                throw new Exception("Port Zaten Tanımlı");
-
-          var prop = new EspPort
-            {
-                PortDesc = request.PortDesc,
-                PortKey = request.PortKey,
-                PortNumber = request.PortNumber,
-                PortPropertyType = request.PortPropertyType,
-                PortType = request.PortType,
-                UpdatedUser=string.Empty,
-            };
-
-            _dbContext.EspPort.Add(prop);
-            await _dbContext.SaveChangesAsync();
-
-        }
-
-        public async Task UpdatePortProp(PortPropsSetRequestDto request)
-        {
-           var prop= await _dbContext.EspPort.SingleAsync(x=>x.Id==request.Id);
-            prop.PortDesc = request.PortDesc;
-            prop.PortKey = request.PortKey;
-            prop.PortNumber = request.PortNumber;
-            prop.PortPropertyType = request.PortPropertyType;
-            prop.PortType = request.PortType;
-            prop.UpdatedUser = "SYS";
-            _dbContext.EspPort.Update(prop);
-            await _dbContext.SaveChangesAsync();
-        }
-
-        public async Task DeletePortProp(long Id)
-        {
-            var prop = await _dbContext.EspPort.SingleAsync(x => x.Id == Id);
-            _dbContext.EspPort.Remove(prop);
-            await _dbContext.SaveChangesAsync();
-        }
-
     }
 }

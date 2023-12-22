@@ -1,18 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Domain.Entities;
 
 namespace Infrastructer
 {
     public class AppDbContext : DbContext, IAppDbContext
     {
-        public DbSet<EspPort> EspPort { get; set; }
+        public DbSet<EspPortDef> EspPortDef { get; set; }
+        public DbSet<ReleChannelDef> ReleChannelDef { get; set; }
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
@@ -20,7 +17,13 @@ namespace Infrastructer
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<EspPort>(b =>
+            modelBuilder.Entity<ReleChannelDef>(b =>
+            {
+                b.HasKey(e => e.Id);
+                b.Property(e => e.Id).ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<EspPortDef>(b =>
             {
                 b.HasKey(e => e.Id);
                 b.Property(e => e.Id).ValueGeneratedOnAdd();
