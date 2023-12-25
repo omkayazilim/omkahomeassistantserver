@@ -6,14 +6,13 @@ namespace espserver.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class EspPortDefServiceControlller : ControllerBase
+    public class EspPortDefController : ControllerBase
     {
         private readonly IEspPortDefService _service;
-        public EspPortDefServiceControlller(IEspPortDefService service)
+        public EspPortDefController(IEspPortDefService service)
         {
             _service = service;
         }
-
 
         [HttpPut]
         public async Task Create([FromBody]EspPortDefCreateRequestDto entity)  => await _service.Create(entity);

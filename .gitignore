@@ -4,7 +4,7 @@
 
 /.vs
 /Domain/bin/Debug/net6.0
-/Domain/obj
+/Domain\obj
 /espserver/.vs
 /espserver/bin/Debug/net6.0
 /espserver/obj
