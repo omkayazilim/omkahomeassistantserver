@@ -8,6 +8,7 @@ namespace Domain.Dto
 {
     public class ReleChannelListItemDto : ReleChannelModelBase
     {
+        public bool ReleStat { get; set; }
         public EspPortDefListItemDto? PortDef { get; set; }
     }
 }

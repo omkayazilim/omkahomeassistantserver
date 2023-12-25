@@ -9,9 +9,11 @@ namespace Business
     public class ReleChannelDefService : IReleChannelDefService
     {
         private readonly IAppDbContext _context;
-        public ReleChannelDefService(IAppDbContext context)
+        private readonly IEsp8266Service _esp8266Service;
+        public ReleChannelDefService(IAppDbContext context, IEsp8266Service esp8266Service)
         {
             _context = context;
+            _esp8266Service = esp8266Service;
         }
 
         public async Task Create(ReleChannelCreateRequestDto entity)
@@ -52,7 +54,7 @@ namespace Business
         }
         public async Task<List<ReleChannelListItemDto>> Get()
         {
-            return await _context.ReleChannelDef.Include(x => x.EspPortDef).Select(x => new ReleChannelListItemDto
+            var  resp= await _context.ReleChannelDef.Include(x => x.EspPortDef).Select(x => new ReleChannelListItemDto
             {
                 Id = x.Id,
                 EspPortDefId = x.EspPortDefId,
@@ -68,6 +70,13 @@ namespace Business
                 }
 
             }).ToListAsync();
+
+          var stats= await  _esp8266Service.GetPinStat();
+            resp.ForEach(x => {
+                x.ReleStat = stats.Single(c=> c.Pin==x.PortDef.PortNumber).Value >0?true:false;
+            });
+           return resp;
+           
         }
         public async Task<ReleChannelListItemDto> Get(long Id)
         {
