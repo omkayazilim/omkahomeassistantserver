@@ -29,10 +29,7 @@ namespace Infrastructer
                 b.Property(e => e.Id).ValueGeneratedOnAdd();
             });
         }
-        public string getpath()
-        {
-            return Path.Combine(Directory.GetCurrentDirectory().Replace("Infrastructer", "espserver"), "appsettings.json");
-        }
+       
     }
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
