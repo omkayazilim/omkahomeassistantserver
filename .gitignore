@@ -13,3 +13,5 @@
 /Business/bin/Debug/net6.0
 /Business/obj/Debug/net6.0
 /Business/obj
+/espserver/appsettings.Development.json
+/espserver/espserver.csproj.user

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json.Linq;
 
 namespace Infrastructer
 {
@@ -14,7 +15,8 @@ namespace Infrastructer
         }
         public static void SetSqlServerOptions(this DbContextOptionsBuilder builder, IConfiguration conf)
         {
-            string connectionString = conf[$"ConnectionStrings:Default"];
+           var  connectionString = Environment.GetEnvironmentVariable("DBHOST");
+          //  string connectionString = conf[$"ConnectionStrings:Default"];
             builder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
         }
