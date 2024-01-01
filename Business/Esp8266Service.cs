@@ -68,5 +68,20 @@ namespace Business
 
             return resp; 
         }
+
+        public async Task<PingResponseDto> GetEspPing() {
+
+            try
+            { 
+                var resp=await GetPinStat();
+                return new PingResponseDto { Status = true, Desc = "Success"};
+            }
+            catch (Exception ex)
+            {
+                return new PingResponseDto { Status=false, Desc=ex.Message };
+            }
+         
+
+        } 
     }
 }

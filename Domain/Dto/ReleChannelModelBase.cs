@@ -9,5 +9,6 @@ namespace Domain.Dto
         public string? ReleChannelName { get; set; }
         public string? ReleChannelDesc{ get; set; }
         public bool IsActive { get; set; } 
+        public int ChannelNo { get; set; }
     }
 }
