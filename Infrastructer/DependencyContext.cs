@@ -15,8 +15,8 @@ namespace Infrastructer
         }
         public static void SetSqlServerOptions(this DbContextOptionsBuilder builder, IConfiguration conf)
         {
-           var  connectionString = Environment.GetEnvironmentVariable("DBHOST");
-          //  string connectionString = conf[$"ConnectionStrings:Default"];
+           
+            string connectionString = conf[$"ConnectionStrings:Default"];
             builder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 
         }

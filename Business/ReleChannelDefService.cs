@@ -54,6 +54,9 @@ namespace Business
         }
         public async Task<List<ReleChannelListItemDto>> Get()
         {
+            var pingresp = await _esp8266Service.GetEspPing();
+            if (!pingresp.Status)
+                return new List<ReleChannelListItemDto>();
             var  resp= await _context.ReleChannelDef.Include(x => x.EspPortDef).Select(x => new ReleChannelListItemDto
             {
                 Id = x.Id,
@@ -61,6 +64,7 @@ namespace Business
                 IsActive = x.IsActive,
                 ReleChannelDesc = x.ReleChannelDesc,
                 ReleChannelName = x.ReleChannelName,
+                 ChannelNo = x.ChannelNo,   
                 PortDef = new EspPortDefListItemDto
                 {
                     PortDesc = x.EspPortDef.PortDesc ,
@@ -70,13 +74,11 @@ namespace Business
                 }
 
             }).ToListAsync();
-
           var stats= await  _esp8266Service.GetPinStat();
             resp.ForEach(x => {
                 x.ReleStat = stats.Single(c=> c.Pin==x.PortDef.PortNumber).Value >0?true:false;
             });
            return resp;
-           
         }
         public async Task<ReleChannelListItemDto> Get(long Id)
         {

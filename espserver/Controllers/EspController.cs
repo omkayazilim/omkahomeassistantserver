@@ -24,5 +24,9 @@ namespace espserver.Controllers
             var resp = _esp8266.PostPinStat(stat);
             return resp;
         }
+
+        [HttpGet]
+        public async Task<PingResponseDto> PingEsp() => await _esp8266.GetEspPing();
+        
     }
 }

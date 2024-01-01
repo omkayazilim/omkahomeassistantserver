@@ -15,6 +15,7 @@ namespace Domain.Entities
         public string? ReleChannelName { get; set; }
         [StringLength(150)]
         public string? ReleChannelDesc { get; set; }
+        public int ChannelNo { get; set; }
 
     }
 }

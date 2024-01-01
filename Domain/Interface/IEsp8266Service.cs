@@ -7,6 +7,8 @@ namespace Domain.Interface
         List<PortStatResponse> PostPinStat(PortStatDto std);
         Task<List<PortStatResponse>> GetPinStat();
         Task<List<PortPropsDto>> GetPortProps();
-     
+        Task<PingResponseDto> GetEspPing();
+
+
     }
 }
