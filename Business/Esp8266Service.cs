@@ -3,16 +3,20 @@ using Domain.Entities;
 using Domain.Interface;
 using Infrastructer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RestSharp;
+using Serilog;
 
 namespace Business
 {
     public class Esp8266Service : IEsp8266Service
     {
         private readonly IAppDbContext _dbContext;
-        public Esp8266Service(IAppDbContext dbContext)
+        private readonly ILogger<Esp8266Service> _logger;
+        public Esp8266Service(IAppDbContext dbContext, ILogger<Esp8266Service> log)
         {
+            _logger = log;
             _dbContext = dbContext;
         }
         public List<PortStatResponse> PostPinStat(PortStatDto std)
@@ -20,13 +24,14 @@ namespace Business
             string espurl = Environment.GetEnvironmentVariable("ESPURL") ?? "";
             string espset = Environment.GetEnvironmentVariable("ESPSET") ?? "";
             var client = new RestClient(espurl);
-
+           
             var request = new RestRequest(espset);
             request.AddBody(std);
             var response = client.ExecutePost(request);
             if (response.IsSuccessStatusCode)
                 return JsonConvert.DeserializeObject<List<PortStatResponse>>(response.Content);//response.Content.ser;
 
+          
             else throw response.ErrorException ?? new Exception();
         }
 
@@ -70,7 +75,7 @@ namespace Business
         }
 
         public async Task<PingResponseDto> GetEspPing() {
-
+            _logger.LogError("Hatalar oldumu");
             try
             { 
                 var resp=await GetPinStat();

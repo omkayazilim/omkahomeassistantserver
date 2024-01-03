@@ -1,8 +1,11 @@
 using Business;
 using Domain.Interface;
 using Infrastructer;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
 
 builder.Services.AddDbContext<AppDbContext>(opt => { opt.SetSqlServerOptions(builder.Configuration); });
 builder.Services.AddScoped<IAppDbContext, AppDbContext>();
@@ -28,12 +31,30 @@ builder.Services.AddCors(options =>
                           .AllowAnyHeader();
                       });
 });
+var logger = new LoggerConfiguration()
+.ReadFrom.Configuration(builder.Configuration)
+.Enrich.FromLogContext()
+.MinimumLevel.Information()
+.WriteTo.Console()
+.CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
  
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetService<AppDbContext>();
+    if (context != null)
+    {
+        await context.Database.MigrateAsync();
+    }
 }
 
 app.UseSwagger();
