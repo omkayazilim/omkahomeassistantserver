@@ -32,6 +32,8 @@ namespace Infrastructer
                 b.Property(e => e.Id).ValueGeneratedOnAdd();
             });
         }
+
+      
        
     }
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>

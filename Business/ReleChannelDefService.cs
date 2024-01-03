@@ -24,6 +24,8 @@ namespace Business
                 IsActive = entity.IsActive,
                 ReleChannelDesc = entity.ReleChannelDesc,
                 ReleChannelName = entity.ReleChannelName,
+                ChannelNo = entity.ChannelNo,
+                
 
             });
 
@@ -39,7 +41,8 @@ namespace Business
                 ReleChannelDesc = entity.ReleChannelDesc,
                 ReleChannelName = entity.ReleChannelName,
                 UpdatedDate = DateTime.Now,
-                CreatedUser = "SYS"
+                CreatedUser = "SYS",
+                ChannelNo = entity.ChannelNo,
 
             });
 
@@ -64,7 +67,7 @@ namespace Business
                 IsActive = x.IsActive,
                 ReleChannelDesc = x.ReleChannelDesc,
                 ReleChannelName = x.ReleChannelName,
-                 ChannelNo = x.ChannelNo,   
+                ChannelNo = x.ChannelNo,   
                 PortDef = new EspPortDefListItemDto
                 {
                     PortDesc = x.EspPortDef.PortDesc ,
@@ -90,6 +93,7 @@ namespace Business
                 IsActive = resp.IsActive,
                 ReleChannelDesc = resp.ReleChannelDesc,
                 ReleChannelName = resp.ReleChannelName,
+                ChannelNo = resp.ChannelNo,
                 PortDef = new EspPortDefListItemDto
                 {
                     PortDesc = resp.EspPortDef.PortDesc,

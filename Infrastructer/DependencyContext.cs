@@ -15,7 +15,9 @@ namespace Infrastructer
         public static void SetSqlServerOptions(this DbContextOptionsBuilder builder, IConfiguration conf)
         {
             var connectionString = Environment.GetEnvironmentVariable("DBHOST");
-           // string connectionString = conf[$"ConnectionStrings:Default"];
+            // string connectionString = conf[$"ConnectionStrings:Default"];
+
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             builder.UseNpgsql(connectionString, b => b.MigrationsAssembly("espserver"));
         }
 
