@@ -2,11 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Domain.Entities;
+using Serilog;
+using Serilog.Core;
 
 namespace Infrastructer
 {
     public class AppDbContext : DbContext, IAppDbContext
     {
+
         public DbSet<EspPortDef> EspPortDef { get; set; }
         public DbSet<ReleChannelDef> ReleChannelDef { get; set; }
 
@@ -42,7 +45,7 @@ namespace Infrastructer
                 .Build();
             var builder = new DbContextOptionsBuilder<AppDbContext>();
             string connectionString = config[$"ConnectionStrings:Default"];
-            builder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), b => b.MigrationsAssembly("espserver"));
+            builder.UseNpgsql(connectionString,b => b.MigrationsAssembly("espserver"));
             return new AppDbContext(builder.Options);
         }
     }

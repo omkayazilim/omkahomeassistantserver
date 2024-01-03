@@ -1,27 +1,36 @@
 {
   "profiles": {
-    "espserver": {
+
+    "espserver_local": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "swagger",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Local",
+        "ESPURL": "http://192.168.1.12",
+        "ESPSET": "setStatus",
+        "DBHOST": "User ID =postgres;Password=2096;Server=192.168.1.23;Port=5432;Database=EspHomeDb; Integrated Security=true;Pooling=true;"
+
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5217"
+    },
+
+    "espserver_dev": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ESPURL": "http://192.168.1.12",
-        "ESPSET": "setStatus"
+        "ESPSET": "setStatus",
+        "DBHOST": "User ID =postgres;Password=2096;Server=192.168.1.23;Port=5432;Database=EspHomeDb; Integrated Security=true;Pooling=true;"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5217"
     },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "launchUrl": "swagger",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "ESPURL": "http://192.168.1.12",
-        "ESPSET": "setStatus"
-      }
-    },
+
+
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
