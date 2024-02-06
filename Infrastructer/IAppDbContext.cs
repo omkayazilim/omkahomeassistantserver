@@ -5,8 +5,10 @@ namespace Infrastructer
 {
     public interface IAppDbContext
     {
-         DbSet<EspPortDef> EspPortDef { get; set; }
-         DbSet<ReleChannelDef> ReleChannelDef { get; set; }
+         DbSet<DeviceDef> DeviceDef { get; set; }
+         DbSet<DevicePortDef> DevicePortDef { get; set; }
+         DbSet<DeviceTypeDef> DeviceTypeDef { get; set; }
+         DbSet<DeviceChannelDef> DeviceChannelDef { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken());
     }
 }

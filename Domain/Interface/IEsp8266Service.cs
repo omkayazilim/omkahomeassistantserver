@@ -4,10 +4,10 @@ namespace Domain.Interface
 {
     public interface IEsp8266Service
     {
-        List<PortStatResponse> PostPinStat(PortStatDto std);
-        Task<List<PortStatResponse>> GetPinStat();
-        Task<List<PortPropsDto>> GetPortProps();
-        Task<PingResponseDto> GetEspPing();
+        List<PortStatResponse> PostPinStat(PortStatDto std, string espUrl);
+        Task<List<PortStatResponse>> GetPinStat(string espUrl);
+        Task<List<PortPropsDto>> GetPortProps(string espUrl);
+   
 
 
     }

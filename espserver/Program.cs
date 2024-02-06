@@ -1,7 +1,6 @@
 using Business;
 using Domain.Interface;
 using Infrastructer;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,8 +11,12 @@ builder.Services.AddScoped<IAppDbContext, AppDbContext>();
 builder.Services.AddInfrastructures(builder.Configuration);
 
 builder.Services.AddScoped<IEsp8266Service, Esp8266Service>();
-builder.Services.AddScoped<IEspPortDefService, EspPortDefService>();
-builder.Services.AddScoped<IReleChannelDefService, ReleChannelDefService>();
+builder.Services.AddScoped<IDeviceDefService, DeviceDefService>();
+builder.Services.AddScoped<IDeviceTypeDefService, DeviceTypeDefService>();
+builder.Services.AddScoped<IDevicePortDefService, DevicePortDefService>();
+builder.Services.AddScoped<IDeviceChannelDefService, DeviceChannelDefService>();
+builder.Services.AddScoped<IApiClientService, ApiClientService>();
+builder.Services.AddScoped<IChannelOperationService, ChannelOperationService>();
 
 
 builder.Services.AddControllers();
@@ -40,6 +43,7 @@ var logger = new LoggerConfiguration()
 
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

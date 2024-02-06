@@ -1,4 +1,6 @@
 ﻿
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Domain.Entities
 {
     public class EspPortDef :EntityBase
@@ -6,6 +8,5 @@ namespace Domain.Entities
         public int PortNumber { get; set; }
         public string? PortKey { get; set; }
         public string? PortDesc { get; set; }
-    
     }
 }
