@@ -22,7 +22,7 @@ namespace espserver.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Domain.Entities.EspPortDef", b =>
+            modelBuilder.Entity("Domain.Entities.DeviceChannelDef", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,36 +31,139 @@ namespace espserver.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("CreatedUser")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("DeviceChannelCode")
+                        .HasMaxLength(5)
+                        .HasColumnType("character varying(5)");
+
+                    b.Property<string>("DeviceChannelDesc")
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<int>("DeviceChannelNo")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("DevicePortId")
+                        .HasColumnType("bigint");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("PortDesc")
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("UpdatedUser")
                         .HasColumnType("text");
 
-                    b.Property<string>("PortKey")
+                    b.HasKey("Id");
+
+                    b.HasIndex("DevicePortId");
+
+                    b.ToTable("DeviceChannelDef");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DeviceDef", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("CreatedUser")
+                        .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<string>("DeviceAdressUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("DeviceCode")
+                        .HasMaxLength(5)
+                        .HasColumnType("character varying(5)");
+
+                    b.Property<string>("DeviceName")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<long>("DeviceTypeId")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("TotalIOPortCount")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("UpdatedUser")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DeviceTypeId");
+
+                    b.ToTable("DeviceDef");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DevicePortDef", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("CreatedUser")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long>("DeviceId")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("IOPortType")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("PortCode")
+                        .HasMaxLength(5)
+                        .HasColumnType("character varying(5)");
+
+                    b.Property<string>("PortDesc")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<int>("PortNumber")
                         .HasColumnType("integer");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UpdatedUser")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("EspPortDef");
+                    b.HasIndex("DeviceId");
+
+                    b.ToTable("DevicePortDef");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ReleChannelDef", b =>
+            modelBuilder.Entity("Domain.Entities.DeviceTypeDef", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -68,52 +171,65 @@ namespace espserver.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<int>("ChannelNo")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("CreatedUser")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("EspPortDefId")
-                        .HasColumnType("bigint");
+                    b.Property<int>("DeviceType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("DeviceTypeDesc")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("ReleChannelDesc")
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.Property<string>("ReleChannelName")
-                        .HasMaxLength(20)
-                        .HasColumnType("character varying(20)");
-
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("UpdatedUser")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EspPortDefId");
-
-                    b.ToTable("ReleChannelDef");
+                    b.ToTable("DeviceTypeDef");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ReleChannelDef", b =>
+            modelBuilder.Entity("Domain.Entities.DeviceChannelDef", b =>
                 {
-                    b.HasOne("Domain.Entities.EspPortDef", "EspPortDef")
+                    b.HasOne("Domain.Entities.DevicePortDef", "DevicePortDef")
                         .WithMany()
-                        .HasForeignKey("EspPortDefId")
+                        .HasForeignKey("DevicePortId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("EspPortDef");
+                    b.Navigation("DevicePortDef");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DeviceDef", b =>
+                {
+                    b.HasOne("Domain.Entities.DeviceTypeDef", "DeviceTypeDef")
+                        .WithMany()
+                        .HasForeignKey("DeviceTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DeviceTypeDef");
+                });
+
+            modelBuilder.Entity("Domain.Entities.DevicePortDef", b =>
+                {
+                    b.HasOne("Domain.Entities.DeviceDef", "DeviceDef")
+                        .WithMany()
+                        .HasForeignKey("DeviceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DeviceDef");
                 });
 #pragma warning restore 612, 618
         }

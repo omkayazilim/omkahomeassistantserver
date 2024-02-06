@@ -1,13 +1,9 @@
 ﻿using Domain.Dto;
-using Domain.Entities;
 using Domain.Interface;
 using Infrastructer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RestSharp;
-using Serilog;
-
 namespace Business
 {
     public class Esp8266Service : IEsp8266Service
@@ -19,11 +15,10 @@ namespace Business
             _logger = log;
             _dbContext = dbContext;
         }
-        public List<PortStatResponse> PostPinStat(PortStatDto std)
+        public List<PortStatResponse> PostPinStat(PortStatDto std, string espUrl)
         {
-            string espurl = Environment.GetEnvironmentVariable("ESPURL") ?? "";
             string espset = Environment.GetEnvironmentVariable("ESPSET") ?? "";
-            var client = new RestClient(espurl);
+            var client = new RestClient(espUrl);
            
             var request = new RestRequest(espset);
             request.AddBody(std);
@@ -35,58 +30,21 @@ namespace Business
             else throw response.ErrorException ?? new Exception();
         }
 
-        public async Task<List<PortStatResponse>> GetPinStat()
+        public async Task<List<PortStatResponse>> GetPinStat(string espUrl)
         {
-            string espurl = Environment.GetEnvironmentVariable("ESPURL") ?? "";
-            var client = new RestClient(espurl);
+            var client = new RestClient(espUrl);
             var request = new RestRequest("getValues");
             var response = await client.GetAsync(request);
             if (response.IsSuccessStatusCode)
                 return JsonConvert.DeserializeObject<List<PortStatResponse>>(response.Content);//response.Content.ser;
             else throw response.ErrorException ?? new Exception();
         }
-        public async Task<List<PortPropsDto>> GetPortProps()
+        public async Task<List<PortPropsDto>> GetPortProps(string espUrl)
         {
-            var props = await _dbContext.EspPortDef.Select(x =>
-            new PortPropsDto
-            {
-                Id = x.Id,
-                PortDesc = x.PortDesc,
-                PortKey = x.PortKey,
-                PortNumber = x.PortNumber
-              
-            }
-            ).ToListAsync();
-            var statlist = await GetPinStat();
+       
 
-            var resp = (from dp in props
-                        join pp in statlist on dp.PortNumber equals pp.Pin
-                        select new PortPropsDto {
-                            Id = dp.Id,
-                            PortDesc = dp.PortDesc,
-                            PortKey = dp.PortKey,
-                            PortNumber = dp.PortNumber,
-                            PortPropertyType = dp.PortPropertyType,
-                            PortType = dp.PortType,
-                            PinStat = pp?.Value >0? true:false,
-                        }).ToList();
-
-            return resp; 
+            return null; 
         }
 
-        public async Task<PingResponseDto> GetEspPing() {
-            _logger.LogError("Hatalar oldumu");
-            try
-            { 
-                var resp=await GetPinStat();
-                return new PingResponseDto { Status = true, Desc = "Success"};
-            }
-            catch (Exception ex)
-            {
-                return new PingResponseDto { Status=false, Desc=ex.Message };
-            }
-         
-
-        } 
     }
 }

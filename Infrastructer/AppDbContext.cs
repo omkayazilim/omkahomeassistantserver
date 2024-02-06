@@ -2,16 +2,16 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Domain.Entities;
-using Serilog;
-using Serilog.Core;
 
 namespace Infrastructer
 {
     public class AppDbContext : DbContext, IAppDbContext
     {
 
-        public DbSet<EspPortDef> EspPortDef { get; set; }
-        public DbSet<ReleChannelDef> ReleChannelDef { get; set; }
+        public DbSet<DeviceDef> DeviceDef { get; set; }
+        public DbSet<DevicePortDef> DevicePortDef { get; set; }
+        public DbSet<DeviceTypeDef> DeviceTypeDef { get; set; }
+        public DbSet<DeviceChannelDef> DeviceChannelDef { get; set; }
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
@@ -20,21 +20,32 @@ namespace Infrastructer
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ReleChannelDef>(b =>
+            modelBuilder.Entity<DeviceDef>(b =>
             {
                 b.HasKey(e => e.Id);
                 b.Property(e => e.Id).ValueGeneratedOnAdd();
             });
 
-            modelBuilder.Entity<EspPortDef>(b =>
+            modelBuilder.Entity<DevicePortDef>(b =>
+            {
+                b.HasKey(e => e.Id);
+                b.Property(e => e.Id).ValueGeneratedOnAdd();
+            });
+
+            modelBuilder.Entity<DeviceTypeDef>(b =>
+            {
+                b.HasKey(e => e.Id);
+                b.Property(e => e.Id).ValueGeneratedOnAdd();
+            });
+            modelBuilder.Entity<DeviceChannelDef>(b =>
             {
                 b.HasKey(e => e.Id);
                 b.Property(e => e.Id).ValueGeneratedOnAdd();
             });
         }
 
-      
-       
+
+
     }
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
@@ -47,7 +58,7 @@ namespace Infrastructer
                 .Build();
             var builder = new DbContextOptionsBuilder<AppDbContext>();
             string connectionString = config[$"ConnectionStrings:Default"];
-            builder.UseNpgsql(connectionString,b => b.MigrationsAssembly("espserver"));
+            builder.UseNpgsql(connectionString, b => b.MigrationsAssembly("espserver"));
             return new AppDbContext(builder.Options);
         }
     }

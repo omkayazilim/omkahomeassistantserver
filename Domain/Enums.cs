@@ -6,16 +6,22 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public enum EspPortType
+    public enum IOPortType
     {
-        IN,
-        OUT
+        IN='I',
+        OUT='O'
     }
 
-    public enum EspPortPropertyType
+    public enum IOPortPropertyType
     {
-        OnlyDigital,
-        OnlyAnalog,
-        Hybrid
+        OnlyDigital='D',
+        OnlyAnalog='A',
+        Hybrid='H'
+    }
+
+    public enum DeviceType
+    {
+        Esp32=32,
+        Esp01=1
     }
 }
