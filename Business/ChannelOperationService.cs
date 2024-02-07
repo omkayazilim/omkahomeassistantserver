@@ -5,6 +5,7 @@ using Domain.Interface;
 using Infrastructer;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using System.Threading.Channels;
 
 namespace Business
 {
@@ -13,27 +14,44 @@ namespace Business
         private readonly ILogger _logger;
         private readonly IMapper _mapper;
         private readonly IApiClientService _apiClient;  
+        private readonly IDeviceChannelDefService _channelDefService;
         public ChannelOperationService(
             IAppDbContext dbContext, 
             IMapper mapper,                  
-            IApiClientService apiClient
+            IApiClientService apiClient,
+            IDeviceChannelDefService channelDefService
             ) : base(dbContext)
         {
             _logger =Log.ForContext<ChannelOperationService>();    
             _mapper = mapper;
             _apiClient = apiClient;
+            _channelDefService = channelDefService;
+        }
+
+        public async Task ChangeStatusChannel(long channelId,bool stat)
+        {
+            var channel = await _channelDefService.Get(channelId);
+            string espset = Environment.GetEnvironmentVariable("ESPSET") ?? "";
+            var req = new ApiClientRequestDto<PortStatDto>
+            {
+                RequestData = new PortStatDto { Pin = channel.DevicePortDef.PortNumber, Stat = stat },
+                RequestMetod = espset,
+                RequestUrl = channel.DevicePortDef.DeviceDef.DeviceAdressUrl
+            };
+            await _apiClient.PostAsync<List<PortStatResponse>, PortStatDto>(req);
         }
 
         public async Task<ChannelStatResponseDto> GetChannelStat(long ChannelId)
         {
-            var channel= await _dbContext.DeviceChannelDef.Include(i=>i.DevicePortDef).ThenInclude(i=>i.DeviceDef).SingleAsync(x=>x.Id == ChannelId);
+            var channel = await _channelDefService.Get(ChannelId);
             var stat = await _apiClient.GetAsync<List<PortStatResponse>>(new ApiClientRequestDto { RequestMetod = "getValues", RequestUrl = channel.DevicePortDef.DeviceDef.DeviceAdressUrl });
             var port=stat.SingleOrDefault(x => x.Pin == channel.DevicePortDef.PortNumber);
             return new ChannelStatResponseDto {
                 ChannelId = channel.Id,
                 ChannelName = channel.DeviceChannelDesc,
                 ChannelStatus = port.Value == 1 ? true : false,
-                ChannelNo=port.Pin
+                ChannelNo = port.Pin,
+                DeviceAddressurl = channel.DevicePortDef.DeviceDef.DeviceAdressUrl
             };
         }
 
