@@ -7,5 +7,6 @@ namespace Domain.Interface
     {
         Task<List<PingResponseDto>> GetDeviceStatus();
         Task<ChannelStatResponseDto> GetChannelStat(long ChannelId);
+        Task ChangeStatusChannel(long channelId, bool stat);
     }
 }
