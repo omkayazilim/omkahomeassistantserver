@@ -54,7 +54,7 @@ namespace Business
 
         public async Task<DeviceChannelDefDto> Get(long Id)
         {
-            return _mapper.Map<DeviceChannelDefDto>(await _dbContext.DeviceChannelDef.SingleAsync(x => x.Id == Id)) ?? new DeviceChannelDefDto();
+            return _mapper.Map<DeviceChannelDefDto>(await _dbContext.DeviceChannelDef.Include(i => i.DevicePortDef).ThenInclude(i => i.DeviceDef).ThenInclude(i => i.DeviceTypeDef).SingleAsync(x => x.Id == Id)) ?? new DeviceChannelDefDto();
         }
 
         public async Task Update(DeviceChannelDefRequestDto entity)

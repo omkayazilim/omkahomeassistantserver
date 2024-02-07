@@ -8,15 +8,15 @@ namespace Domain
 {
     public enum IOPortType
     {
-        IN='I',
-        OUT='O'
+        IN=0,
+        OUT=1
     }
 
     public enum IOPortPropertyType
     {
-        OnlyDigital='D',
-        OnlyAnalog='A',
-        Hybrid='H'
+        OnlyDigital=0,
+        OnlyAnalog=1,
+        Hybrid=2
     }
 
     public enum DeviceType
