@@ -49,7 +49,8 @@ namespace Business
 
         public async Task<List<DeviceChannelDefDto>> Get()
         {
-            return _mapper.Map<List<DeviceChannelDefDto>>(await _dbContext.DeviceChannelDef.Include(i=>i.DevicePortDef).ThenInclude(i=>i.DeviceDef).ThenInclude(i=>i.DeviceTypeDef).ToListAsync()) ?? new List<DeviceChannelDefDto>();
+            var result= _mapper.Map<List<DeviceChannelDefDto>>(await _dbContext.DeviceChannelDef.Include(i=>i.DevicePortDef).ThenInclude(i=>i.DeviceDef).ThenInclude(i=>i.DeviceTypeDef).ToListAsync()) ?? new List<DeviceChannelDefDto>();
+            return result;
         }
 
         public async Task<DeviceChannelDefDto> Get(long Id)
