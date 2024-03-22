@@ -22,5 +22,8 @@ namespace espserver.Controllers
 
         [HttpGet]
         public async Task SetChanelStatus(long channelId, bool stat) => await _service.ChangeStatusChannel(channelId,stat);
+
+        [HttpPost("CahnelStatChange")]
+        public async Task SetChanelStatus([FromBody]ChannelStatRequestDto request) => await _service.ChangeStatusChannel(request);
     }
 }

@@ -199,6 +199,7 @@ D:\Projects\omkahomeassistantserver\espserver\bin\Debug\net6.0\espserver.deps.js
 D:\Projects\omkahomeassistantserver\espserver\bin\Debug\net6.0\espserver.runtimeconfig.json
 D:\Projects\omkahomeassistantserver\espserver\bin\Debug\net6.0\espserver.dll
 D:\Projects\omkahomeassistantserver\espserver\bin\Debug\net6.0\espserver.pdb
+D:\Projects\omkahomeassistantserver\espserver\bin\Debug\net6.0\AutoMapper.dll
 D:\Projects\omkahomeassistantserver\espserver\bin\Debug\net6.0\Azure.Core.dll
 D:\Projects\omkahomeassistantserver\espserver\bin\Debug\net6.0\Azure.Identity.dll
 D:\Projects\omkahomeassistantserver\espserver\bin\Debug\net6.0\FluentValidation.dll
@@ -315,4 +316,3 @@ D:\Projects\omkahomeassistantserver\espserver\obj\Debug\net6.0\refint\espserver.
 D:\Projects\omkahomeassistantserver\espserver\obj\Debug\net6.0\espserver.pdb
 D:\Projects\omkahomeassistantserver\espserver\obj\Debug\net6.0\espserver.genruntimeconfig.cache
 D:\Projects\omkahomeassistantserver\espserver\obj\Debug\net6.0\ref\espserver.dll
-D:\Projects\omkahomeassistantserver\espserver\bin\Debug\net6.0\AutoMapper.dll
