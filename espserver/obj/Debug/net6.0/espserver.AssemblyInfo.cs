@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("espserver")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3bb746a16de7d721cd666c63c4408920535d4765")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d1f533da5fa872aebd15212d9946c61f76983233")]
 [assembly: System.Reflection.AssemblyProductAttribute("espserver")]
 [assembly: System.Reflection.AssemblyTitleAttribute("espserver")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

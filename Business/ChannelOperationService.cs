@@ -5,6 +5,7 @@ using Domain.Interface;
 using Infrastructer;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using System.Threading.Channels;
 
 namespace Business
 {
@@ -34,6 +35,19 @@ namespace Business
             var req = new ApiClientRequestDto<PortStatDto>
             {
                 RequestData = new PortStatDto { Pin = channel.DevicePortDef.PortNumber, Stat = stat },
+                RequestMetod = espset,
+                RequestUrl = channel.DevicePortDef.DeviceDef.DeviceAdressUrl
+            };
+            await _apiClient.PostAsync<List<PortStatResponse>, PortStatDto>(req);
+        }
+
+        public  async Task ChangeStatusChannel(ChannelStatRequestDto request)
+        {
+            var channel = await _channelDefService.Get(request.Channel.Id);
+            string espset = Environment.GetEnvironmentVariable("ESPSET") ?? "";
+            var req = new ApiClientRequestDto<PortStatDto>
+            {
+                RequestData = new PortStatDto { Pin = channel.DevicePortDef.PortNumber, Stat = request.Stat },
                 RequestMetod = espset,
                 RequestUrl = channel.DevicePortDef.DeviceDef.DeviceAdressUrl
             };
