@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace espserver.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240206071622_refactor")]
-    partial class refactor
+    [Migration("20240322200514_initdb")]
+    partial class initdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -102,6 +102,9 @@ namespace espserver.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
+                    b.Property<int>("TotalIOPortCount")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("timestamp without time zone");
 
@@ -132,6 +135,9 @@ namespace espserver.Migrations
 
                     b.Property<long>("DeviceId")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("IOPortType")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
