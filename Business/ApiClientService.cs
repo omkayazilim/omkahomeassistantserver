@@ -14,7 +14,6 @@ namespace Business
         {
             _logger=Log.ForContext<ApiClientService>();
         }
-
         public async Task<T> GetAsync<T>(ApiClientRequestDto req) 
         {
            using var client = new RestClient(req.RequestUrl);
@@ -24,7 +23,6 @@ namespace Business
                 return JsonConvert.DeserializeObject<T>(response.Content);//response.Content.ser;
             else throw response.ErrorException ?? new Exception();
         }
-
         public async Task<T> PostAsync<T,T1>(ApiClientRequestDto<T1> req)
         {
            using var client = new RestClient(req.RequestUrl);
