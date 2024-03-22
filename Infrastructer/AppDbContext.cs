@@ -7,12 +7,10 @@ namespace Infrastructer
 {
     public class AppDbContext : DbContext, IAppDbContext
     {
-
         public DbSet<DeviceDef> DeviceDef { get; set; }
         public DbSet<DevicePortDef> DevicePortDef { get; set; }
         public DbSet<DeviceTypeDef> DeviceTypeDef { get; set; }
         public DbSet<DeviceChannelDef> DeviceChannelDef { get; set; }
-
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
@@ -43,9 +41,6 @@ namespace Infrastructer
                 b.Property(e => e.Id).ValueGeneratedOnAdd();
             });
         }
-
-
-
     }
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {

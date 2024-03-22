@@ -3,15 +3,12 @@
 ################################################################################
 
 /.vs
+/Business/bin/Debug/net6.0
+/Business/obj
 /Domain/bin/Debug/net6.0
-/Domain\obj
 /espserver/.vs
 /espserver/bin/Debug/net6.0
-/espserver/obj
+/espserver/obj/Debug/net6.0
+/espserver/espserver.csproj.user
 /Infrastructer/bin/Debug/net6.0
 /Infrastructer/obj
-/Business/bin/Debug/net6.0
-/Business/obj/Debug/net6.0
-/Business/obj
-/espserver/appsettings.Development.json
-/espserver/espserver.csproj.user
