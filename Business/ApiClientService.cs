@@ -4,6 +4,7 @@ using Domain.Interface;
 using Newtonsoft.Json;
 using RestSharp;
 using Serilog;
+using System;
 
 namespace Business
 {
@@ -16,16 +17,36 @@ namespace Business
         }
         public async Task<T> GetAsync<T>(ApiClientRequestDto req) 
         {
-           using var client = new RestClient(req.RequestUrl);
+            try
+            {
+
+          
+            var opt = new RestClientOptions(req.RequestUrl);
+            opt.MaxTimeout = 10000;
+            using var client = new RestClient(opt);
             var request = new RestRequest(req.RequestMetod);
+         
             var response = await client.GetAsync(request);
             if (response.IsSuccessStatusCode)
                 return JsonConvert.DeserializeObject<T>(response.Content);//response.Content.ser;
             else throw response.ErrorException ?? new Exception();
+            }
+            catch (TimeoutException)
+            {
+
+                return default;
+            }
+            catch (Exception)
+            {
+
+                throw default;
+            }
         }
         public async Task<T> PostAsync<T,T1>(ApiClientRequestDto<T1> req)
         {
-           using var client = new RestClient(req.RequestUrl);
+            var opt = new RestClientOptions(req.RequestUrl);
+            opt.MaxTimeout = 10000;
+            using var client = new RestClient(opt);
             var request = new RestRequest(req.RequestMetod);
             request.AddBody(req.RequestData);
             var response = await client.ExecutePostAsync(request);

@@ -20,5 +20,8 @@ namespace Domain.Entities
         [StringLength(100)]
         public string? DeviceChannelDesc { get; set; }
 
+        [StringLength(100)]
+        public string? DeviceChannelIcon { get; set; }
+
     }
 }

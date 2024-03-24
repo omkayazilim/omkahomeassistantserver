@@ -18,6 +18,9 @@
         public string? DeviceChannelCode { get; set; }
         public string? DeviceChannelDesc { get; set; }
         public bool IsActive { get; set; }
+        public string? DeviceChannelIcon { get; set; }
+        public bool ChannelStatus { get; set; }
+
     }
 
 }

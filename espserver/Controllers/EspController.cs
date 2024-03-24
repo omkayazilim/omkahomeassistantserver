@@ -20,7 +20,7 @@ namespace espserver.Controllers
         public List<PortStatResponse> EspSetValue([FromBody] PortStatDto stat)
         {
             _logger.LogInformation("Start call");
-            var resp = _esp8266.PostPinStat(stat,"");
+            var resp = _esp8266.PostPinStat(stat, "http://192.168.1.12");
             return resp;
         }
 

@@ -24,4 +24,7 @@ namespace Domain
         Esp32=32,
         Esp01=1
     }
+
+    public enum IconType { }
+
 }

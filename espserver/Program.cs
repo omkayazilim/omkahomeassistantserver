@@ -9,7 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(opt => { opt.SetSqlServerOptions(builder.Configuration); });
 builder.Services.AddScoped<IAppDbContext, AppDbContext>();
 builder.Services.AddInfrastructures(builder.Configuration);
-
 builder.Services.AddScoped<IEsp8266Service, Esp8266Service>();
 builder.Services.AddScoped<IDeviceDefService, DeviceDefService>();
 builder.Services.AddScoped<IDeviceTypeDefService, DeviceTypeDefService>();
