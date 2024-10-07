@@ -9,7 +9,7 @@ namespace espserver.Controllers
         [HttpGet]
         public IActionResult Version()
         {
-            return Ok("Api Version :V0.05");
+            return Ok("Api Version :V0.06");
         }
     }
 }
