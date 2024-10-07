@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace espserver.Migrations
 {
     /// <inheritdoc />
-    public partial class initdb : Migration
+    public partial class initDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -97,6 +97,7 @@ namespace espserver.Migrations
                     DeviceChannelNo = table.Column<int>(type: "integer", nullable: false),
                     DeviceChannelCode = table.Column<string>(type: "character varying(5)", maxLength: 5, nullable: true),
                     DeviceChannelDesc = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    DeviceChannelIcon = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     CreatedUser = table.Column<string>(type: "text", nullable: false),
                     UpdatedUser = table.Column<string>(type: "text", nullable: true),
