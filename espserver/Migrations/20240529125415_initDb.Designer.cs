@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace espserver.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240323235424_deviceicon")]
-    partial class deviceicon
+    [Migration("20240529125415_initDb")]
+    partial class initDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

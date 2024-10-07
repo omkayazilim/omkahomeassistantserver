@@ -52,7 +52,7 @@ namespace Business
 
         public async Task<List<DeviceChannelDefDto>> Get()
         {
-            var result = _mapper.Map<List<DeviceChannelDefDto>>(await _dbContext.DeviceChannelDef.Include(i => i.DevicePortDef).ThenInclude(i => i.DeviceDef).ThenInclude(i => i.DeviceTypeDef).ToListAsync()) ?? new List<DeviceChannelDefDto>();
+            var result = _mapper.Map<List<DeviceChannelDefDto>>(await _dbContext.DeviceChannelDef.Include(i => i.DevicePortDef).ThenInclude(i => i.DeviceDef).ToListAsync()) ?? new List<DeviceChannelDefDto>();
 
             var devices = await _dbContext.DeviceDef.Where(x => x.IsActive).ToListAsync();
             var portList = new List<DevicelistPortStatDto>();
@@ -79,7 +79,7 @@ namespace Business
 
         public async Task<DeviceChannelDefDto> Get(long Id)
         {
-            return _mapper.Map<DeviceChannelDefDto>(await _dbContext.DeviceChannelDef.Include(i => i.DevicePortDef).ThenInclude(i => i.DeviceDef).ThenInclude(i => i.DeviceTypeDef).SingleAsync(x => x.Id == Id)) ?? new DeviceChannelDefDto();
+            return _mapper.Map<DeviceChannelDefDto>(await _dbContext.DeviceChannelDef.Include(i => i.DevicePortDef).ThenInclude(i => i.DeviceDef).SingleAsync(x => x.Id == Id)) ?? new DeviceChannelDefDto();
         }
 
         public async Task Update(DeviceChannelDefRequestDto entity)

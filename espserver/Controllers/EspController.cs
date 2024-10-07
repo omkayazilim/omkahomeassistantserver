@@ -15,7 +15,6 @@ namespace espserver.Controllers
             _esp8266 = espset;
             _logger = logger;
         }
-
         [HttpPost]
         public List<PortStatResponse> EspSetValue([FromBody] PortStatDto stat)
         {
@@ -23,8 +22,5 @@ namespace espserver.Controllers
             var resp = _esp8266.PostPinStat(stat, "http://192.168.1.12");
             return resp;
         }
-
-
-        
     }
 }
