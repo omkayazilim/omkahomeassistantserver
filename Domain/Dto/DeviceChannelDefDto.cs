@@ -20,6 +20,7 @@
         public bool IsActive { get; set; }
         public string? DeviceChannelIcon { get; set; }
         public bool ChannelStatus { get; set; }
+        public string? DeviceUrl{ get; set; }
 
     }
 
