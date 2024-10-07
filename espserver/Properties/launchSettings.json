@@ -9,7 +9,7 @@
         "ASPNETCORE_ENVIRONMENT": "Local",
         "ESPURL": "http://192.168.1.12",
         "ESPSET": "setStatus",
-        "DBHOST": "User ID =postgres;Password=2096;Server=192.168.1.23;Port=5432;Database=EspHomeDb; Integrated Security=true;Pooling=true;"
+        "DBHOST": "User ID =postgres;Password=2096;Server=192.168.1.23;Port=5432;Database=omkahome; Integrated Security=true;Pooling=true;"
 
       },
       "dotnetRunMessages": true,
@@ -24,7 +24,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "ESPURL": "http://192.168.1.12",
         "ESPSET": "setStatus",
-        "DBHOST": "User ID =postgres;Password=2096;Server=192.168.1.23;Port=5432;Database=EspHomeDb; Integrated Security=true;Pooling=true;"
+        "DBHOST": "User ID =postgres;Password=2096;Server=192.168.1.23;Port=5432;Database=omkahome; Integrated Security=true;Pooling=true;"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5217"
