@@ -52,9 +52,28 @@ namespace Business
 
         public async Task<List<DeviceChannelDefDto>> Get()
         {
-            var result = _mapper.Map<List<DeviceChannelDefDto>>(await _dbContext.DeviceChannelDef.Include(i => i.DevicePortDef).ThenInclude(i => i.DeviceDef).ToListAsync()) ?? new List<DeviceChannelDefDto>();
 
+            var channels = await _dbContext.DeviceChannelDef.ToListAsync();
+            var ports = await _dbContext.DevicePortDef.ToListAsync();
             var devices = await _dbContext.DeviceDef.Where(x => x.IsActive).ToListAsync();
+
+           // var result = _mapper.Map<List<DeviceChannelDefDto>>(await _dbContext.DeviceChannelDef.Include(i => i.DevicePortDef).ThenInclude(i => i.DeviceDef).ToListAsync()) ?? new List<DeviceChannelDefDto>();
+
+            var result = (from channel in channels
+                        join port in ports on channel.DevicePortId equals port.Id
+                        join deice in devices on port.DeviceId equals deice.Id
+                        where deice.IsActive == true
+                        select new DeviceChannelDefDto
+                        {
+                            DeviceChannelCode = channel.DeviceChannelCode,
+                            DeviceChannelDesc = channel.DeviceChannelDesc,
+                            DeviceChannelIcon = channel.DeviceChannelIcon,
+                            DeviceChannelNo = channel.DeviceChannelNo,
+                            Id = channel.Id,
+                            IsActive = channel.IsActive
+                            
+                        }).ToList();
+
             var portList = new List<DevicelistPortStatDto>();
             foreach (var entity in devices)
             {
@@ -68,11 +87,11 @@ namespace Business
                     }));
             }
 
-            result.ForEach(r => 
+            result.ForEach(r =>
             {
-               var val= portList.SingleOrDefault(x=>x.DeviceId==r.DevicePortDef.DeviceDef.Id && x.PortNo==r.DevicePortDef.PortNumber);
-               r.ChannelStatus = val?.ChannelStatus??false;
-            
+                var val = portList.SingleOrDefault(x => x.DeviceId == r?.DevicePortDef?.DeviceDef?.Id && x.PortNo == r.DevicePortDef.PortNumber);
+                r.ChannelStatus = val?.ChannelStatus ?? false;
+
             });
             return result;
         }
