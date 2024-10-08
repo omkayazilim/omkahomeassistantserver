@@ -30,10 +30,12 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: "crs",
                       builder =>
                       {
-                          builder.WithOrigins("*")
+                          builder
                           .AllowAnyMethod()
-                          .AllowAnyHeader();
-                      });
+                          .AllowAnyHeader()
+                          .AllowAnyHeader()
+                          .AllowCredentials();
+});
 });
 builder.Services.AddSignalR();
 var logger = new LoggerConfiguration()
@@ -72,9 +74,11 @@ app.UseSwagger();
 app.UseSwaggerUI();
 app.UseCors(builder =>
         builder
-        .WithOrigins("*")
-        .AllowAnyMethod()
-        .AllowAnyHeader());
+         .AllowAnyMethod()
+          .AllowAnyHeader()
+           .AllowAnyHeader()
+            .AllowCredentials()
+        );
 
 app.UseAuthorization();
 
