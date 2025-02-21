@@ -24,19 +24,6 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy(name: "crs",
-                      builder =>
-                      {
-                          builder
-                          .AllowAnyMethod()
-                          .AllowAnyHeader()
-                          .AllowAnyHeader()
-                          .AllowCredentials();
-});
-});
 builder.Services.AddSignalR();
 var logger = new LoggerConfiguration()
 .ReadFrom.Configuration(builder.Configuration)
@@ -48,6 +35,12 @@ var logger = new LoggerConfiguration()
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        policyBuilder => policyBuilder.WithOrigins("*"));
+});
+
 var app = builder.Build();
 app.UseRouting();
 app.UseEndpoints(endpoints =>
@@ -72,13 +65,7 @@ using (var scope = app.Services.CreateScope())
 
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseCors(builder =>
-        builder
-         .AllowAnyMethod()
-          .AllowAnyHeader()
-           .AllowAnyHeader()
-            .AllowCredentials()
-        );
+app.UseCors("AllowSpecificOrigin");
 
 app.UseAuthorization();
 

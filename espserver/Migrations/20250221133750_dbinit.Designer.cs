@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace espserver.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240529125415_initDb")]
-    partial class initDb
+    [Migration("20250221133750_dbinit")]
+    partial class dbinit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
